@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.my-attendance-container {
+  font-family: 'Poppins', sans-serif;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(30, 64, 175, 0.1); 
+  margin:50px auto; 
+  min-height: calc(100vh - 120px); 
+  transition: margin-left 0.3s ease;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  background: #10b981; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: #059669; 
+  transform: translateY(-2px);
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(30, 64, 175, 0.1);
+}
+
+.attendance-th,
+.attendance-td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 1rem;
+  color: #374151; 
+}
+
+.attendance-th {
+  background: #1e40af; 
+  color: white;
+  font-weight: 600;
+}
+
+.attendance-td {
+  background: #f9fafb; 
+  border-bottom: 1px solid #e0e7ff; 
+}
+
+.attendance-table tr:last-child .attendance-td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background: #e0e7ff; 
+}
+
+@media (max-width: 768px) {
+  .my-attendance-container {
+    margin-left: 200px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .attendance-th,
+  .attendance-td {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-attendance-container {
+    margin-left: 0;
+    margin-top: 60px;
+    padding: 15px;
+  }
+
+  .attendance-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  .attendance-th,
+  .attendance-td {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+}

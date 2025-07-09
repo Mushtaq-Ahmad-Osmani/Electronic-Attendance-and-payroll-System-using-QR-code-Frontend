@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.notifications-container {
+  background: linear-gradient(135deg, #1e40af, #a3bffa);
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: #374151;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 2200px; 
+  max-width: 1600px; 
+  margin: 0 auto; 
+}
+
+.notifications-title {
+  font-size: 2rem;
+  color: #f9fafb;
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  animation: bounceIn 0.8s ease;
+}
+
+.no-notifications {
+  font-size: 1.2rem;
+  color: #f9fafb;
+  text-align: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 80%;
+}
+
+.notification-list {
+  list-style: none;
+  padding: 0;
+  width: 100%; 
+  max-width: 100%;
+}
+
+.notification-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease;
+  width: 95%; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.notification-item h3 {
+  font-size: 1.3rem;
+  color: #1e40af;
+  margin-bottom: 10px;
+}
+
+.notification-item p {
+  font-size: 1rem;
+  color: #374151;
+  margin: 5px 0;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+.notification-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  .notifications-container {
+    max-width: 90%; 
+  }
+
+  .notifications-title {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+
+  .no-notifications {
+    font-size: 1.1rem;
+    padding: 12px;
+    width: 85%;
+  }
+
+  .notification-item {
+    padding: 12px;
+    margin-bottom: 12px;
+    width: 95%;
+  }
+
+  .notification-item h3 {
+    font-size: 1.1rem;
+  }
+
+  .notification-item p {
+    font-size: 0.9rem;
+  }
+
+  .date {
+    font-size: 0.8rem;
+  }
+
+  .notification-image {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .notifications-container {
+    max-width: 95%; 
+  }
+
+  .notifications-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .no-notifications {
+    font-size: 1rem;
+    padding: 10px;
+    width: 90%;
+  }
+
+  .notification-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .notification-item h3 {
+    font-size: 1rem;
+  }
+
+  .notification-item p {
+    font-size: 0.85rem;
+  }
+
+  .date {
+    font-size: 0.75rem;
+  }
+
+  .notification-image {
+    max-width: 85%;
+  }
+}

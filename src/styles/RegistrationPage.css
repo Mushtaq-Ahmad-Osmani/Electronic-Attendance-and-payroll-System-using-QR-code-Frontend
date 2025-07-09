@@ -1,0 +1,183 @@
+body {
+  background: #f4f6f9;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reg-wrapper {
+  max-width: 800px;
+  width: 700px;
+  margin: 100px auto;
+  padding: 60px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 12px 30px rgba(30, 64, 175, 0.15);
+  text-align: center;
+}
+
+.reg-wrapper h2 {
+  font-size: 2.8rem;
+  color: #1e40af;
+  margin-bottom: 35px;
+  text-shadow: 1px 1px 4px rgba(30, 64, 175, 0.1);
+}
+
+.reg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field label {
+  font-size: 1.3rem;
+  color: #374151;
+  font-weight: 500;
+  text-align: left;
+}
+
+.form-field input,
+.form-field select {
+  padding: 12px; 
+  border: 2px solid #e0e7ff;
+  border-radius: 10px;
+  font-size: 1.1rem; 
+  background: #f9fafb;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #1e40af;
+  box-shadow: 0 0 15px rgba(30, 64, 175, 0.2);
+}
+
+.form-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.radio-option input {
+  margin: 0;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.custom-checkbox input {
+  display: none;
+}
+
+.custom-checkbox .checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e0e7ff;
+  border-radius: 5px;
+  background-color: #f9fafb;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #1e40af;
+  border-color: #1e40af;
+}
+
+.custom-checkbox .checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  left: 6px;
+  top: 2px;
+}
+
+.reg-btn {
+  padding: 20px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.reg-btn:hover {
+  background: #172554;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
+}
+
+@media (max-width: 768px) {
+  .reg-wrapper {
+    margin: 60px auto;
+    padding: 40px;
+    max-width: 600px;
+  }
+
+  .reg-wrapper h2 {
+    font-size: 2.2rem;
+  }
+
+  .form-field input,
+  .form-field select {
+    font-size: 1.1rem;
+    padding: 16px;
+  }
+
+  .reg-btn {
+    font-size: 1.3rem;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reg-wrapper {
+    margin: 40px auto;
+    padding: 25px;
+    max-width: 350px;
+  }
+
+  .reg-wrapper h2 {
+    font-size: 1.8rem;
+  }
+
+  .form-field input,
+  .form-field select {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .reg-btn {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+}

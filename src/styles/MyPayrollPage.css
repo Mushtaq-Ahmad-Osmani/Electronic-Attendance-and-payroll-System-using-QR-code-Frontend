@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.my-payroll-container {
+  font-family: 'Poppins', sans-serif;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  margin: 70px auto;
+  margin-top: 90px; 
+  min-height: calc(100vh - 120px); 
+  transition: margin-left 0.3s ease;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0b1c33;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(7, 211, 99, 0.05);
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #1f2937;
+}
+
+th {
+  background: #1e40af;
+  color: white;
+  font-weight: 600;
+}
+
+td {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tr:hover {
+  background: #f1f5f9;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-gray-600 {
+  color: #4b5563;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .my-payroll-container {
+    margin-left: 200px;
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  th, td {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-payroll-container {
+    margin-left: 0;
+    margin-top: 60px;
+    padding: 15px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+}
