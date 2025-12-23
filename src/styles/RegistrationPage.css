@@ -60,6 +60,25 @@ body {
   box-shadow: 0 0 15px rgba(30, 64, 175, 0.2);
 }
 
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.cancel-btn {
+  background-color: #ccc;
+  color: #000;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #aaa;
+}
+
 .form-radio-group {
   display: flex;
   flex-direction: column;

@@ -17,9 +17,12 @@ import MyAttendancePage from "./component/userspage/MyAttendancePage";
 import NotificationsPage from "./component/userspage/NotificationsPage";
 import CreateNotificationPage from "./component/userspage/CreateNotificationPage";
 import TeacherSchedulePage from './component/userspage/TeacherSchedulePage';
-
+import TeacherPayrollsPage from "./component/userspage/TeacherPayrollsPage";
+import TeacherAttendancePage from "./component/userspage/TeacherAttendancePage";
 import './App.css';
 import HomePage from "./component/userspage/HomePage";
+import UpdatePassword from "./component/userspage/UpdatePassword";
+
 
 function App() {
   
@@ -53,16 +56,21 @@ function MainLayout() {
            <Route path="/notifications" element={<NotificationsPage />} />
            <Route path="/schedules" element={<TeacherSchedulePage />} />
            <Route exact path="/Home" element={<HomePage />} />
+           <Route path="/update-password" element={<UpdatePassword />} />
+
 
             {UserService.adminOnly() && (
                 <>
                     <Route path="/admin/all-payrolls" element={<AllPayrollsPage />} />
+                    <Route path="/admin/view-attendance/:teacherId/:year/:month" element={<TeacherAttendancePage />} />   
                     <Route path="/admin/all-attendances" element={<AllAttendancesPage />} />
                     <Route exact path="/scanner" element={<QrScanner />} />
+                     <Route path="/admin/view-payroll/:teacherId/:year/:month" element={<TeacherPayrollsPage />}/>
                     <Route path="/register" element={<RegistrationPage />} />
                     <Route path="/admin/user-management" element={<UserManagementPage />} />
                     <Route path="/update-user/:userId" element={<UpdateUser />} />
                     <Route path="/admin/create-notification" element={<CreateNotificationPage />} />
+
                      
                  
 

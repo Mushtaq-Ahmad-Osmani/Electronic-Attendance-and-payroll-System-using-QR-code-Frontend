@@ -41,17 +41,20 @@
   font-size: 1rem;
 }
 
-button {
-  padding: 10px 20px;
-  background: #1e40af;
+
+.schedule-form button {
+  background-color: #10b981;
   color: white;
   border: none;
   border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
 }
 
-button:hover {
-  background: #172554;
+.schedule-form button:hover {
+  background-color: #059669;
 }
 
 .schedule-table {
@@ -71,9 +74,35 @@ button:hover {
   color: #374151;
 }
 
-.schedule-table td button {
-  margin-right: 10px;
+
+.schedule-table td button:first-child {
+  background-color: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 5px;
   padding: 5px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.schedule-table td button:first-child:hover {
+  background-color: #172554;
+}
+
+
+.schedule-table td button:last-child {
+  background-color:#dc2626;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.schedule-table td button:last-child:hover {
+  background-color: #b91c1c;
 }
 
 .error-message {
@@ -96,4 +125,87 @@ button:hover {
 
 .text-center {
   text-align: center;
+}
+
+
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.custom-modal {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.custom-modal h3 {
+  font-size: 1.5rem;
+  color: #1e40af;
+  margin-bottom: 15px;
+}
+
+.custom-modal p {
+  font-size: 1rem;
+  color: #374151;
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  width: 80px;
+}
+
+.confirm-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+.cancel-btn {
+  background: #e0e7ff;
+  color: #1e40af;
+}
+
+.cancel-btn:hover {
+  background: #d1d5db;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-btn {
+    width: 100%;
+  }
 }

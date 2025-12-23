@@ -1,10 +1,11 @@
+
 import React, { useEffect, useState } from 'react';
 import UserService from '../service/UserService';
 import '../../styles/TeacherSchedulePage.css';
 
 function TeacherSchedulePage() {
   const [schedules, setSchedules] = useState([]);
-  const [selectedSchedule, setSelectedSchedule] = useState(null); // State for selected schedule
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
   const [formData, setFormData] = useState({
     teacherId: '',
     dayOfWeek: '',
@@ -14,9 +15,15 @@ function TeacherSchedulePage() {
   });
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [scheduleToDelete, setScheduleToDelete] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    if (!UserService.isAuthenticated()) {
+      setError('Please log in to access this page.');
+      return;
+    }
     if (!UserService.adminOnly()) {
       setError('Only admins can access this page.');
       return;
@@ -24,12 +31,28 @@ function TeacherSchedulePage() {
     fetchSchedules(token);
   }, []);
 
+  useEffect(() => {
+    if (message) {
+      const timer = setTimeout(() => setMessage(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => setError(null), 7000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
   const fetchSchedules = async (token) => {
     try {
       const data = await UserService.getAllSchedules(token);
+      console.log('Fetched schedules:', data);
       setSchedules(data);
     } catch (err) {
-      setError(err.message || 'Failed to fetch schedules.');
+      console.error('Error fetching schedules:', err.response ? err.response.data : err.message);
+      setError(err.response?.data?.error || err.message || 'Failed to fetch schedules.');
     }
   };
 
@@ -53,7 +76,8 @@ function TeacherSchedulePage() {
       setFormData({ teacherId: '', dayOfWeek: '', startTime: '', endTime: '', expectedCredits: '' });
       setSelectedSchedule(null);
     } catch (err) {
-      setError(err.message || 'Failed to save schedule.');
+      console.error('Error saving schedule:', err.response ? err.response.data : err.message);
+      setError(err.response?.data?.error || err.message || 'Failed to save schedule.');
     }
   };
 
@@ -68,17 +92,33 @@ function TeacherSchedulePage() {
     });
   };
 
-  const handleDelete = async (id) => {
+  const confirmDelete = (scheduleId) => {
+    setScheduleToDelete(scheduleId);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
     const token = localStorage.getItem('token');
-    if (window.confirm('Are you sure you want to delete this schedule?')) {
-      try {
-        await UserService.deleteSchedule(id, token);
-        fetchSchedules(token);
-        setMessage('Schedule deleted successfully.');
-      } catch (err) {
-        setError(err.message || 'Failed to delete schedule.');
+    try {
+      const response = await UserService.deleteSchedule(scheduleToDelete, token);
+      console.log('Delete schedule response:', response);
+      fetchSchedules(token);
+      setMessage('Schedule deleted successfully.');
+    } catch (err) {
+      console.error('Error deleting schedule:', err.response ? err.response.data : err.message);
+      let errorMessage = err.response?.data?.error || err.message || 'Failed to delete schedule.';
+      if (errorMessage.includes('foreign key constraint fails')) {
+        errorMessage = 'Cannot delete this schedule because it is associated with attendance records. Please clear or reassign related attendance records first.';
       }
+      setError(errorMessage);
     }
+    setShowDeleteModal(false);
+    setScheduleToDelete(null);
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    setScheduleToDelete(null);
   };
 
   return (
@@ -86,7 +126,7 @@ function TeacherSchedulePage() {
       <h2>Teacher Schedules</h2>
       {error && <div className="error-message">{error}</div>}
       {message && <div className="success-message">{message}</div>}
-      {!UserService.adminOnly() ? (
+      {!UserService.isAuthenticated() || !UserService.adminOnly() ? (
         <div>{error}</div>
       ) : (
         <>
@@ -142,6 +182,7 @@ function TeacherSchedulePage() {
             </div>
             <button type="submit">{selectedSchedule ? 'Update Schedule' : 'Add Schedule'}</button>
           </form>
+
           <table className="schedule-table">
             <thead>
               <tr>
@@ -164,7 +205,7 @@ function TeacherSchedulePage() {
                     <td>{schedule.expectedCredits}</td>
                     <td>
                       <button onClick={() => handleEdit(schedule)}>Edit</button>
-                      <button onClick={() => handleDelete(schedule.id)}>Delete</button>
+                      <button onClick={() => confirmDelete(schedule.id)}>Delete</button>
                     </td>
                   </tr>
                 ))
@@ -175,6 +216,19 @@ function TeacherSchedulePage() {
               )}
             </tbody>
           </table>
+
+          {showDeleteModal && (
+            <div className="custom-modal-overlay">
+              <div className="custom-modal">
+                <h3>Confirm Deletion</h3>
+                <p>Are you sure you want to delete this schedule?</p>
+                <div className="modal-buttons">
+                  <button className="modal-btn confirm-btn" onClick={handleConfirmDelete}>Yes</button>
+                  <button className="modal-btn cancel-btn" onClick={handleCancelDelete}>No</button>
+                </div>
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

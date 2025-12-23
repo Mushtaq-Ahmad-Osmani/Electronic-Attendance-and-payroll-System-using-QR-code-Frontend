@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserService from '../service/UserService'; // فرض می‌کنیم سرویس برای دریافت نقش کاربر داریم
+import UserService from '../service/UserService';
 import '../../styles/HomePage.css';
 import logo from '../../styles/Assets/kateb_logo.png';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const [userRole, setUserRole] = useState(null); // حالت برای ذخیره نقش کاربر
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const fetchUserRole = async () => {
       try {
         const token = localStorage.getItem('token');
         if (token) {
-          const response = await UserService.getYourProfile(token); // فرض می‌کنیم این متد نقش را برمی‌گرداند
-          const role = response.teachers?.role || null; // استخراج نقش از پاسخ
+          const response = await UserService.getYourProfile(token);
+          const role = response.teachers?.role || null; 
           setUserRole(role);
         }
       } catch (error) {
@@ -24,10 +24,10 @@ const HomePage = () => {
     fetchUserRole();
   }, []);
 
-  // رندر بر اساس نقش
+
   const renderContent = () => {
     if (!userRole) {
-      return <p>Loading...</p>; // نمایش در حال بارگذاری تا نقش مشخص شود
+      return <p>Loading...</p>; 
     }
 
     return (
@@ -41,7 +41,7 @@ const HomePage = () => {
           <p>
             {userRole === 'ADMIN'
               ? 'Manage users, track all attendance records, and generate payroll reports in one intuitive platform.'
-              : 'Log your attendance and view payroll with ease.'}
+              : 'Log your attendance and view payroll with easy.'}
           </p>
         </div>
         <div className="quick-links">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import UserService from '../service/UserService';  // مسیر دقیق نسبت به محل فایل را چک کن
-import '../../styles/CreateNotificaton.css';
+import UserService from '../service/UserService';
+import '../../styles/CreateNotificaton.css'; 
 
 function CreateNotificationPage() {
   const [title, setTitle] = useState('');
@@ -9,7 +9,6 @@ function CreateNotificationPage() {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -23,13 +22,16 @@ function CreateNotificationPage() {
 
     try {
       await UserService.createNotification(formData, token);
-      setSuccessMessage('Notification successfully created.');
+      setSuccessMessage('Notification created successfully!');
       setTitle('');
       setMessage('');
       setImage(null);
       setErrorMessage('');
+      setTimeout(() => setSuccessMessage(''), 7000);
     } catch (err) {
       setErrorMessage('Error creating notification');
+
+      setTimeout(() => setErrorMessage(''), 7000);
     }
   };
 
@@ -56,7 +58,7 @@ function CreateNotificationPage() {
             onChange={(e) => setMessage(e.target.value)}
             required
             className="form-textarea"
-          ></textarea>
+          />
         </div>
         <div className="form-group">
           <label>Image (Optional):</label>

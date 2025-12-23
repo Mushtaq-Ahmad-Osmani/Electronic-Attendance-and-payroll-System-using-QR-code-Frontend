@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 .header {
-   display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   background: #1e40af;
@@ -14,7 +14,6 @@
   z-index: 1000;
   font-family: 'Poppins', sans-serif;
 }
-
 
 .logo {
   display: flex;
@@ -41,9 +40,9 @@
 .logo-text {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #f2f4f8; 
+  color: #f2f4f8;
   margin: 0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); 
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .nav {
@@ -65,27 +64,27 @@
 
 .nav-link {
   text-decoration: none;
-  color: #f2f4f8; 
+  color: #f2f4f8;
   font-size: 0.9rem;
   font-weight: 500;
   display: flex;
   align-items: center;
   gap: 3px;
   padding: 5px 8px;
-  border-radius: 4px; 
+  border-radius: 4px;
   transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
 }
 
 .nav-link.active {
   color: white;
-  background: #10b981; 
+  background: #10b981;
   font-weight: 600;
 }
 
 .nav-link:hover {
   color: #10b981;
   transform: translateY(-2px);
-  background: rgba(16, 185, 129, 0.1); 
+  background: rgba(16, 185, 129, 0.1);
 }
 
 .nav-icon {
@@ -98,12 +97,14 @@
 }
 
 .profile-img {
-  width: 30px;
-  height: 30px;
+  width: 30px !important;
+  height: 30px !important;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #10b981; 
+  border: 1px solid #10b981;
   transition: transform 0.2s ease;
+  max-width: 30px !important;
+  max-height: 30px !important;
 }
 
 .profile-img:hover {
@@ -111,32 +112,33 @@
 }
 
 .default-avatar {
-  width: 30px;
-  height: 30px;
+  width: 30px !important;
+  height: 30px !important;
   border-radius: 50%;
-  background: #2563eb; 
+  background: #2563eb;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 0.6rem !important;
   font-weight: 600;
   transition: transform 0.2s ease;
+  max-width: 35px !important;
+  max-height: 35px !important;
 }
 
 .default-avatar:hover {
   transform: scale(1.1);
 }
 
-@media (max-width: 768px) {
+
+@media (max-width: 1280px) {
   .header {
-    left: 200px;
-    width: calc(100% - 200px);
-    padding: 8px 15px;
+    padding: 15px 30px;
   }
 
   .logo-img {
-    width: 30px;
+    width: 40px;
   }
 
   .logo-text {
@@ -148,13 +150,68 @@
     padding: 4px 6px;
   }
 
+  .profile-img, .default-avatar {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 0.55rem !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .header {
+    padding: 12px 20px;
+  }
+
+  .logo-img {
+    width: 35px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 3px 5px;
+  }
+
   .nav-icon {
     font-size: 0.9rem;
   }
 
   .profile-img, .default-avatar {
-    width: 28px;
-    height: 28px;
+    width: 25px !important;
+    height: 25px !important;
+    font-size: 0.5rem !important;
+    max-width: 25px !important;
+    max-height: 25px !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .header {
+    left: 200px;
+    width: calc(100% - 200px);
+    padding: 10px 15px;
+    flex-direction: row;
+  }
+
+  .nav-list {
+    gap: 8px;
+  }
+
+  .nav-link {
+    font-size: 0.75rem;
+  }
+
+  .profile-img, .default-avatar {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.45rem !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
   }
 }
 
@@ -177,8 +234,8 @@
   }
 
   .nav-link {
-    font-size: 0.8rem;
-    padding: 3px 5px;
+    font-size: 0.7rem;
+    padding: 2px 4px;
   }
 
   .user-profile {
@@ -186,12 +243,10 @@
   }
 
   .profile-img, .default-avatar {
-    width: 25px;
-    height: 25px;
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 0.4rem !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
   }
 }
-
-
-
-
- 

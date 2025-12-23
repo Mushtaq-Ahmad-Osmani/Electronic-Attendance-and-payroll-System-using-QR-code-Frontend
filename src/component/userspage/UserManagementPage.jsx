@@ -82,7 +82,6 @@
                 <th>Credit</th>
                 <th>Credit Rate</th>
                 <th>Phone Number</th>
-                <th>Profile Picture</th>
                 <th>Gender</th>
                 <th>Role</th>
                 <th>Actions</th>
@@ -104,11 +103,6 @@
                     <td>{user.credits || 'N/A'}</td>
                     <td>{user.creditRate || 'N/A'}</td>
                     <td>{user.phone || 'N/A'}</td>
-                    <td>
-                      {user.profilePicture && (
-                        <img src={user.profilePicture} alt="Profile" className="profile-image" />
-                      )}
-                    </td>
                     <td>{user.gender || 'N/A'}</td>
                     <td>{user.role || 'N/A'}</td>
                     <td className="action-buttons">

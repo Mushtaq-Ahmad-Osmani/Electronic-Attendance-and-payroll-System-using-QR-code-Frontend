@@ -1,52 +1,61 @@
 .user-profile-wrapper {
-  max-width: 900px;
-  width: 100%;
-  margin: 20px auto;
-  padding: 25px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 6px 18px rgba(30, 64, 175, 0.1);
+  padding: 20px;
+  max-width: 800px;
+  margin: 80px auto 20px;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
 }
 
 .user-profile-section {
   display: flex;
-  gap: 40px;
-  align-items: flex-start;
+  gap: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .user-photo-card {
   text-align: center;
-  flex-shrink: 0;
 }
 
 .user-image-frame {
-  width: 160px;
-  height: 160px;
-  margin-bottom: 15px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   overflow: hidden;
-  background: #f0f4f8;
+  border: 4px solid #10b981;
+  box-shadow: 0 4px 8px rgba(16, 185, 129, 0.2);
+  margin-bottom: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer; 
 }
 
 .user-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.user-image:hover {
+  transform: scale(1.05);
 }
 
 .default-user-image {
   width: 100%;
   height: 100%;
+  background: #e0e7ff;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .default-user-icon {
-  font-size: 3.5rem;
+  font-size: 4rem;
   color: #1e40af;
 }
 
@@ -57,111 +66,150 @@
 .photo-upload-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
+  gap: 5px;
+  padding: 8px 15px;
   background: #1e40af;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: background 0.3s ease;
 }
 
 .photo-upload-btn:hover {
-  background: #172554;
+  background: #1e3a8a;
 }
 
 .camera-symbol {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .user-info-panel {
-  flex: 1;
+  flex-grow: 1;
 }
 
-.user-info-panel h2 {
-  font-size: 2rem;
+h2 {
+  font-size: 1.8rem;
   color: #1e40af;
   margin-bottom: 10px;
 }
 
 .user-role-label {
-  font-size: 1.1rem;
-  color: #64748b;
-  margin-bottom: 20px;
+  font-size: 0.9rem;
+  color: #374151;
+  margin-bottom: 15px;
 }
 
 .user-details p {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 1.1rem;
-  margin-bottom: 12px;
+  gap: 10px;
+  font-size: 0.95rem;
+  margin-bottom: 10px;
   color: #374151;
 }
 
 .info-icon {
-  color: #1e40af;
-  font-size: 1.3rem;
+  color: #1e3a8a;
 }
 
-.edit-profile-btn {
+.edit-profile-btn,
+.edit-password-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
+  gap: 5px;
+  padding: 8px 15px;
   background: #10b981;
   color: white;
   text-decoration: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
   transition: background 0.3s ease;
 }
 
-.edit-profile-btn:hover {
+.edit-profile-btn,
+.edit-password-btn:hover {
   background: #059669;
 }
 
-.loading-message, .error-message {
-  text-align: center;
-  color: #64748b;
+.loading-message
+{text-align: center;
   padding: 20px;
+  color: #64748b
+  
+}
+.error-message {
+  text-align: center;
+  padding: 20px;
+  color: #dc2626;
+}
+
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  cursor: pointer;
+}
+
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {
   .user-profile-section {
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    padding: 15px;
   }
 
   .user-image-frame {
-    width: 130px;
-    height: 130px;
+    width: 150px;
+    height: 150px;
   }
 
-  .user-info-panel h2 {
-    font-size: 1.7rem;
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .user-details p {
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .user-profile-wrapper {
-    margin: 10px;
-    padding: 15px;
+    margin: 60px auto 10px;
+    padding: 10px;
   }
 
   .user-image-frame {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
 
-  .user-info-panel h2 {
-    font-size: 1.5rem;
+  h2 {
+    font-size: 1.2rem;
   }
 
   .user-details p {
-    font-size: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .photo-upload-btn,
+  .edit-profile-btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
   }
 }

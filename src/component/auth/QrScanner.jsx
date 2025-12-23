@@ -1,76 +1,62 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { QrReader } from 'react-qr-reader';
+import React, { useEffect, useRef, useState } from 'react';
+import QrScanner from 'qr-scanner';
 import axios from 'axios';
-import { FaPlay, FaStop, FaTimes, FaCheckCircle } from 'react-icons/fa';
+import { FaTimes, FaCheckCircle } from 'react-icons/fa';
 import UserService from '../service/UserService';
 import '../../styles/QrScanner.css';
 
 const QRScanner = () => {
-  const [scanning, setScanning] = useState(false);
+  const videoRef = useRef(null);
   const [userInfo, setUserInfo] = useState(null);
-  const processed = useRef(false);
-  const qrReaderRef = useRef(null);
-// Cleanup video stream when scanning stops
+  const [scanning, setScanning] = useState(false);
+  const scannerRef = useRef(null);
+
   useEffect(() => {
-    if (!scanning && qrReaderRef.current) {
-      const videoElem = qrReaderRef.current.querySelector('video');
-      if (videoElem?.srcObject) {
-        videoElem.srcObject.getTracks().forEach((track) => track.stop());
-        videoElem.srcObject = null;
-      }
+    if (scanning) {
+      const startScanner = async () => {
+        scannerRef.current = new QrScanner(
+          videoRef.current,
+          async (result) => {
+            if (result?.data) {
+              const email = result.data;
+              try {
+                const res = await axios.post('/attendance/scan', null, {
+                  params: { email }
+                });
+                setUserInfo(res.data);
+              } catch (e) {
+                setUserInfo({
+                  email,
+                  message: e.response?.data?.message || 'Error in check-in',
+                });
+              }
+              stopScan();
+            }
+          },
+          { highlightScanRegion: true, highlightCodeOutline: true }
+        );
+        await scannerRef.current.start();
+      };
+
+      startScanner();
     }
+
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.stop();
+      }
+    };
   }, [scanning]);
 
-  const startScan = async () => {
+  const startScan = () => {
     setUserInfo(null);
-    processed.current = false;
     setScanning(true);
-
-    if (!UserService.isAdmin()) {
-      alert('Access denied. Only admins can use this page.');
-      setScanning(false);
-      return;
-    }
   };
 
   const stopScan = () => {
     setScanning(false);
-    if (qrReaderRef.current) {
-      const videoElem = qrReaderRef.current.querySelector('video');
-      if (videoElem?.srcObject) {
-        videoElem.srcObject.getTracks().forEach((track) => track.stop());
-        videoElem.srcObject = null;
-      }
-    }
-  };
-
-  // Handle the QR code scan result
-  const handleResult = async (result, error) => {
-    if (result?.text && !processed.current) {
-      processed.current = true;
-      const email = result.text;
-
-      try {
-        const res = await axios.post('/attendance/scan', null, {
-          params: { email }
-        });
-        setUserInfo(res.data);
-      } catch (e) {
-        setUserInfo({
-          email,
-          message: e.response?.data?.message || 'Error in check-in',
-        });
-      }
-
-      stopScan();
-    }
-  };
-
-  const handleError = (error) => {
-    console.error('QR Scan Error:', error);
-    if (error.name === 'NotAllowedError' || error.name === 'NotFoundError') {
-      alert('Camera access denied or not found. Please check permissions.');
-      stopScan();
+    if (scannerRef.current) {
+      scannerRef.current.stop();
     }
   };
 
@@ -89,26 +75,24 @@ const QRScanner = () => {
 
       {!scanning && (
         <button className="scan-btn" onClick={startScan}>
-          <FaPlay /> Start Scan
+          Start Scan
         </button>
       )}
 
       {scanning && (
         <div className="scanner-box">
-          <QrReader
-            ref={qrReaderRef}
-            onResult={handleResult}
-            onError={handleError}
-            constraints={{ facingMode: 'environment', width: { ideal: 400 }, height: { ideal: 300 } }}
-            scanDelay={300}
-            style={{ width: '100%', height: 'auto', borderRadius: '8px', overflow: 'hidden' }}
+          <video
+            ref={videoRef}
+            style={{ width: '100%', borderRadius: '10px' }}
+            muted
+            playsInline
           />
           <button className="stop-btn" onClick={stopScan}>
-            <FaStop /> Stop
+            Stop
           </button>
         </div>
       )}
-{/* Popup for user info after scan */}
+
       {userInfo && (
         <div className="popup-container">
           <div className="popup-content">

@@ -16,6 +16,15 @@ function LoginPage() {
         e.preventDefault(); // Prevent default form submission
         setError(''); // Clear any existing errors
 
+         if (!email || !password) {
+            setError('Email and password are required');
+            return;
+        }
+        if (!email.match(/^[A-Za-z0-9+_.-]+@(.+)$/)) {
+            setError('Invalid email format');
+            return;
+        }
+
         try {
             const userData = await UserService.login(email, password);
             console.log(userData);
@@ -26,7 +35,7 @@ function LoginPage() {
                 localStorage.setItem('role', userData.role);
                 navigate('/home');
             } else {
-                setError(userData?.message || "Invalid credentials");
+                setError(userData?.message || "Invalid email or password. Please try again.");
             }
 
         } catch (error) {

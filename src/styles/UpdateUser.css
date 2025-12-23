@@ -1,183 +1,243 @@
+
+/* Container for the entire update form wrapper */
 .user-update-wrapper {
   max-width: 800px;
-  width: 100%;
-  margin: 10px auto;
-  padding: 70px;
-  background: #ffffff;
+  width: 700px;
+  margin: 20px auto;
+  padding: 40px;
+  background-color: #ffffff;
   border-radius: 15px;
-  box-shadow: 0 12px 30px rgba(30, 64, 175, 0.1);
+  box-shadow: 0 10px 25px rgba(30, 64, 175, 0.15);
+  transition: box-shadow 0.3s ease;
 }
 
+/* Section containing the form */
 .update-form-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
 }
 
+/* Heading styles */
 .update-form-section h2 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #1e40af;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-.form-field, .form-radio-group {
+/* Common styles for form fields and radio groups */
+.form-field,
+.form-radio-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-.form-field label, .form-radio-group label {
-  font-size: 1rem;
+.form-field label,
+.form-radio-group label {
+  font-size: 1.1rem;
   color: #374151;
   font-weight: 500;
+  margin-bottom: 4px;
 }
 
+/* Input field styles */
 .form-field input {
-  padding: 10px;
+  padding: 12px 15px;
   border: 2px solid #e0e7ff;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #f9fafb;
 }
 
 .form-field input:focus {
   border-color: #1e40af;
+  box-shadow: 0 0 8px rgba(30, 64, 175, 0.2);
 }
 
+/* Radio group styles */
 .form-radio-group {
   flex-direction: row;
-  gap: 15px;
+  gap: 20px;
   align-items: center;
+  padding: 5px 0;
 }
 
 .radio-option {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .radio-option input {
   margin: 0;
+  accent-color: #1e40af; /* Modern radio button color */
 }
 
+/* Submit button styles */
 .submit-btn {
-  padding: 12px;
-  background: #1e40af;
+  padding: 14px;
+  background-color: #1e40af;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   width: 100%;
+  font-weight: 500;
 }
 
 .submit-btn:hover {
-  background: #172554;
-  transform: translateY(-2px);
+  background-color: #172554;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(23, 37, 84, 0.3);
 }
 
+/* Modal overlay styles */
 .custom-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(3px); /* Subtle blur effect */
 }
 
+/* Modal content styles */
 .custom-modal {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 400px;
+  max-width: 450px;
   text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
+/* Modal heading */
 .custom-modal h3 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: #1e40af;
   margin-bottom: 15px;
+  font-weight: 600;
 }
 
+/* Modal paragraph */
 .custom-modal p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #374151;
   margin-bottom: 20px;
+  line-height: 1.5;
 }
 
+/* Modal button container */
 .modal-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
 }
 
+/* Common modal button styles */
 .modal-btn {
-  padding: 10px 20px;
+  padding: 12px 25px;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-  width: 80px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  font-weight: 500;
 }
 
+/* Confirm button styles */
 .confirm-btn {
-  background: #1e40af;
+  background-color: #1e40af;
   color: white;
 }
 
 .confirm-btn:hover {
-  background: #172554;
+  background-color: #172554;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(23, 37, 84, 0.3);
 }
 
+/* Cancel button styles */
 .cancel-btn {
-  background: #e0e7ff;
+  background-color: #e0e7ff;
   color: #1e40af;
 }
 
 .cancel-btn:hover {
-  background: #d1d5db;
+  background-color: #d1d5db;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(209, 213, 219, 0.3);
 }
 
+/* Animation for modal fade-in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Media query for tablets and smaller screens */
 @media (max-width: 768px) {
   .user-update-wrapper {
-    margin: 20px;
-    padding: 20px;
+    margin: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.1);
   }
 
   .update-form-section h2 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
 
-  .form-field input, .submit-btn {
-    font-size: 0.95rem;
-    padding: 8px;
+  .form-field input,
+  .submit-btn {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .form-radio-group {
+    gap: 15px;
   }
 }
 
+/* Media query for mobile devices */
 @media (max-width: 480px) {
   .user-update-wrapper {
     margin: 10px;
-    padding: 15px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(30, 64, 175, 0.1);
   }
 
   .form-radio-group {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
   }
 
   .submit-btn {
+    font-size: 1.05rem;
+  }
+
+  .custom-modal {
+    padding: 20px;
+    max-width: 350px;
+  }
+
+  .modal-btn {
+    padding: 10px 20px;
     font-size: 1rem;
   }
 }

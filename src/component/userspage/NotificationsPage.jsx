@@ -4,6 +4,8 @@ import '../../styles/NotificatonPage.css';
 
 function NotificationsPage() {
   const [notifications, setNotifications] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [notificationToDelete, setNotificationToDelete] = useState(null);
 
   useEffect(() => {
     fetchNotifications();
@@ -23,10 +25,33 @@ function NotificationsPage() {
     }
   };
 
+  const handleDeleteClick = (id) => {
+    setNotificationToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await UserService.deleteNotification(notificationToDelete, token);
+      setNotifications((prev) => prev.filter((n) => n.id !== notificationToDelete));
+      setShowDeleteModal(false);
+      setNotificationToDelete(null);
+    } catch (e) {
+      alert('Delete failed');
+      setShowDeleteModal(false);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+    setNotificationToDelete(null);
+  };
+
   if (!UserService.isAuthenticated()) {
     return (
       <div className="notifications-container">
-        <h1 className="notifications-title">Notifications</h1>
+        <h1>Notifications</h1>
         <p>Please log in to view your notifications.</p>
       </div>
     );
@@ -34,22 +59,46 @@ function NotificationsPage() {
 
   return (
     <div className="notifications-container">
-      <h1 className="notifications-title">Notifications</h1>
+      <h1>Notifications</h1>
       {notifications.length === 0 ? (
-        <p className="no-notifications">No notifications available.</p>
+        <p>No notifications available.</p>
       ) : (
         <ul className="notification-list">
           {notifications.map((note) => (
             <li key={note.id} className="notification-item">
-              <h3>{note.title}</h3>
+              <div className="notification-header">
+                <h3>{note.title}</h3>
+                {UserService.isAdmin() && (
+                  <button className="btn-delete" onClick={() => handleDeleteClick(note.id)}>
+                    Delete
+                  </button>
+                )}
+              </div>
               <p>{note.message}</p>
               <p className="date">{new Date(note.createdAt).toLocaleString()}</p>
-              {note.imageUrl && (
-                <img src={note.imageUrl} alt="Notification" className="notification-image" />
+              {note.imagePath && (
+                <img
+                  src={`${UserService.BASE_URL}${note.imagePath}`}
+                  alt="Notification"
+                  className="notification-image"
+                  onError={(e) => console.log('Image failed to load:', e.target.src)}
+                />
               )}
             </li>
           ))}
         </ul>
+      )}
+      {showDeleteModal && (
+        <div className="custom-modal-overlay">
+          <div className="custom-modal">
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this notification?</p>
+            <div className="modal-buttons">
+              <button className="modal-btn confirm-btn" onClick={handleConfirmDelete}>Yes</button>
+              <button className="modal-btn cancel-btn" onClick={handleCancelDelete}>No</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -1,13 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import UserService from '../service/UserService';
 import '../../styles/UpdateUser.css';
 
-
-
 function UpdateUser() {
   const navigate = useNavigate();
-  const { userId } = useParams();  // Get user ID from URL parameters
+  const { userId } = useParams();
 
   const [userData, setUserData] = useState({
     name: '',
@@ -17,8 +16,10 @@ function UpdateUser() {
     password: '',
     confirmPassword: '',
     gender: '',
+    credits: '',
+    creditRate: '',
   });
-
+  const [error, setError] = useState('');
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
@@ -28,12 +29,29 @@ function UpdateUser() {
   const fetchUserDataById = async (userId) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await UserService.getUserById(userId, token);
-      const { name, email, role, phone, gender } = response.teachers;
-      setUserData({ name, email, role, phone, gender, password: '', confirmPassword: '' });
+      const response = await UserService.getUserById(parseInt(userId), token);
+      const { name, email, role, phone, gender, credits, creditRate } = response.teachers;
+      setUserData({ name, email, role, phone, gender, credits: credits || '', creditRate: creditRate || '', password: '', confirmPassword: '' });
     } catch (error) {
       console.error('Error fetching user data:', error);
+      setError('Error fetching user data: ' + error.message);
     }
+  };
+
+  const validatePassword = (password) => {
+    if (!password) {
+      return null; // Password is optional
+    }
+    if (password.length < 5) {
+      return 'Password must be at least 5 characters long';
+    }
+    if (!/[A-Z]/.test(password)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      return 'Password must contain at least one special character';
+    }
+    return null;
   };
 
   const handleInputChange = (e) => {
@@ -48,17 +66,20 @@ function UpdateUser() {
     e.preventDefault();
     try {
       if (userData.password && userData.password !== userData.confirmPassword) {
-        alert('Password and confirmation do not match!');
+        setError('Password and confirmation do not match!');
         return;
       }
-
+      if (userData.password) {
+        const passwordError = validatePassword(userData.password);
+        if (passwordError) {
+          setError(passwordError);
+          return;
+        }
+      }
       setShowConfirmModal(true);
-
-    
-    
-   } catch (error) {
+    } catch (error) {
       console.error('Error validating form:', error);
-      alert('An error occurred. Please try again.');
+      setError('An error occurred. Please try again.');
     }
   };
 
@@ -71,6 +92,8 @@ function UpdateUser() {
         role: userData.role,
         phone: userData.phone,
         gender: userData.gender,
+        credits: userData.credits ? parseInt(userData.credits) : null,
+        creditRate: userData.creditRate ? parseFloat(userData.creditRate) : null,
       };
 
       if (userData.password) {
@@ -78,22 +101,25 @@ function UpdateUser() {
       }
 
       await UserService.updateUser(userId, updatedData, token);
-      setShowConfirmModal(false); // Close modal after success
-      navigate('/admin/user-management');
+      setShowConfirmModal(false);
+      navigate('/admin/user-management', { state: { showSuccessNotification: true } });
     } catch (error) {
       console.error('Error updating user profile:', error);
-      alert('An error occurred. Please try again.');
-      setShowConfirmModal(false); // Close modal on error
+      setError('Error updating user: ' + (error.response?.data?.message || error.message));
+      setShowConfirmModal(false);
     }
   };
 
   const handleCancelUpdate = () => {
-    setShowConfirmModal(false); 
+    setShowConfirmModal(false);
+    setError('');
   };
+
   return (
-     <div className="user-update-wrapper">
+    <div className="user-update-wrapper">
       <div className="update-form-section">
         <h2>Update User</h2>
+        {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-field">
             <label>Name:</label>
@@ -105,7 +131,10 @@ function UpdateUser() {
           </div>
           <div className="form-field">
             <label>Role:</label>
-            <input type="text" name="role" value={userData.role} onChange={handleInputChange} required />
+            <select name="role" value={userData.role} onChange={handleInputChange} required>
+              <option value="USER">USER</option>
+              <option value="ADMIN">ADMIN</option>
+            </select>
           </div>
           <div className="form-field">
             <label>Phone:</label>
@@ -118,6 +147,14 @@ function UpdateUser() {
           <div className="form-field">
             <label>Confirm Password:</label>
             <input type="password" name="confirmPassword" value={userData.confirmPassword} onChange={handleInputChange} />
+          </div>
+          <div className="form-field">
+            <label>Credits:</label>
+            <input type="number" name="credits" value={userData.credits} onChange={handleInputChange} />
+          </div>
+          <div className="form-field">
+            <label>Credit Rate:</label>
+            <input type="number" step="0.01" name="creditRate" value={userData.creditRate} onChange={handleInputChange} />
           </div>
           <div className="form-radio-group">
             <label>Gender:</label>
@@ -145,10 +182,7 @@ function UpdateUser() {
           <button type="submit" className="submit-btn">Update</button>
         </form>
       </div>
-    
-  
-
-  {showConfirmModal && (
+      {showConfirmModal && (
         <div className="custom-modal-overlay">
           <div className="custom-modal">
             <h3>Confirm Update</h3>
@@ -162,7 +196,6 @@ function UpdateUser() {
       )}
     </div>
   );
-
 }
 
 export default UpdateUser;

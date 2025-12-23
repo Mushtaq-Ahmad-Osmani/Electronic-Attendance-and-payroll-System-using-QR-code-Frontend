@@ -109,7 +109,7 @@
   box-shadow: 0 2px 5px rgba(59, 130, 246, 0.2);
 }
 
-/* Responsive design */
+
 @media (max-width: 768px) {
   .home-container {
     margin-left: 200px;

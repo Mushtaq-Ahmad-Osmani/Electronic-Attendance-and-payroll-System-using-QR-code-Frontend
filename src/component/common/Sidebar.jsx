@@ -93,7 +93,7 @@ const Sidebar = () => {
                 {UserService.isAdmin() && (
                     <div className="sidebar-link">
                         <Link to="/schedules" className={location.pathname === '/schedules' ? 'active' : ''}>
-                            <RiCalendarScheduleFill  className="icon" /> {isOpen && 'Teacher Schedules'} {/* استفاده از FaListAlt به‌عنوان آیکون مشابه */}
+                            <RiCalendarScheduleFill  className="icon" /> {isOpen && 'Teacher Schedules'} 
                         </Link>
                     </div>
                 )}
