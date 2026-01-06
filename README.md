@@ -93,21 +93,17 @@ https://github.com/Mushtaq-Ahmad-Osmani/Electronic-Attendance-Payroll-System-usi
 
 ---
 
+
 ## Screenshots
 
-some screenshots of the UI pages 
-
-
-
-```md
-![Login Page](screenshots/login.png)
-![Dashboard Page](screenshots/Dashboard.png)
-![Profile Page](screenshots/profile.png)
-![Scan Page](screenshots/scan.png)
-![Attendance Page](screenshots/attendance.png)
-![Payroll Page](screenshots/payroll.png)
-![Notification Page](screenshots/notification.png)
-![Schedule Page](screenshots/schedule.png)
+![Login Page](./screenshots/login.png)
+![Dashboard Page](./screenshots/Dashboard.png)
+![Profile Page](./screenshots/profile.png)
+![Scan Page](./screenshots/scan.png)
+![Attendance Page](./screenshots/attendance.png)
+![Payroll Page](./screenshots/payroll.png)
+![Notification Page](./screenshots/notification.png)
+![Schedule Page](./screenshots/schedule.png)
 
 ```
 
