@@ -93,15 +93,22 @@ https://github.com/Mushtaq-Ahmad-Osmani/Electronic-Attendance-Payroll-System-usi
 
 ---
 
-## 📷 Screenshots
+## Screenshots
 
-> You can add screenshots of the UI pages here
+some screenshots of the UI pages 
 
-Example:
+
 
 ```md
-![Login Page](screenshots/login-page.png)
-![Dashboard](screenshots/dashboard.png)
+![Login Page](screenshots/login.png)
+![Dashboard Page](screenshots/Dashboard.png)
+![Profile Page](screenshots/profile.png)
+![Scan Page](screenshots/scan.png)
+![Attendance Page](screenshots/attendance.png)
+![Payroll Page](screenshots/payroll.png)
+![Notification Page](screenshots/notification.png)
+![Schedule Page](screenshots/schedule.png)
+
 ```
 
 ---
